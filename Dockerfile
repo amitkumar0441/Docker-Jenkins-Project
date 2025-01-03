@@ -1,4 +1,4 @@
-FROM centos:latest
+FROM centos:8
 
 # Update yum and install required packages including wget
 RUN yum -y update && yum install -y httpd zip unzip wget
