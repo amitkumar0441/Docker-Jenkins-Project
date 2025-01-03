@@ -1,7 +1,11 @@
 FROM centos:8
 
-# Update yum and install required packages including wget
-RUN yum -y update && yum install -y httpd zip unzip wget
+# First, update yum and check for errors
+RUN yum -y update
+
+# Then install packages separately
+RUN yum install -y httpd
+RUN yum install -y zip unzip wget
 
 # Download the template
 RUN wget https://www.free-css.com/assets/files/free-css-templates/download/page296/neogym.zip -P /var/www/html/
