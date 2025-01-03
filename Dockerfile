@@ -1,7 +1,7 @@
 FROM centos:latest
 
-# Install required packages including wget
-RUN yum install -y httpd zip unzip wget
+# Update yum and install required packages including wget
+RUN yum -y update && yum install -y httpd zip unzip wget
 
 # Download the template
 RUN wget https://www.free-css.com/assets/files/free-css-templates/download/page296/neogym.zip -P /var/www/html/
@@ -23,4 +23,3 @@ CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
 
 # Expose port 80 for the HTTP server
 EXPOSE 80
-
