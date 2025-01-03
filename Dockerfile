@@ -1,11 +1,7 @@
 FROM centos:8
 
-# First, update yum and check for errors
-RUN yum -y update
-
-# Then install packages separately
-RUN yum install -y httpd
-RUN yum install -y zip unzip wget
+# Ensure dnf package manager is used
+RUN dnf -y update && dnf -y install httpd zip unzip wget
 
 # Download the template
 RUN wget https://www.free-css.com/assets/files/free-css-templates/download/page296/neogym.zip -P /var/www/html/
@@ -27,3 +23,4 @@ CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
 
 # Expose port 80 for the HTTP server
 EXPOSE 80
+
