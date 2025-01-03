@@ -1,12 +1,26 @@
-FROM  centos:latest
-RUN yum install -y httpd \
- zip\
- unzip
-ADD https://www.free-css.com/assets/files/free-css-templates/download/page296/neogym.zip /var/www/html/
+FROM centos:latest
+
+# Install required packages including wget
+RUN yum install -y httpd zip unzip wget
+
+# Download the template
+RUN wget https://www.free-css.com/assets/files/free-css-templates/download/page296/neogym.zip -P /var/www/html/
+
+# Set the working directory to /var/www/html
 WORKDIR /var/www/html/
+
+# Unzip the template
 RUN unzip neogym.zip
-RUN cp -rvf neogym-html/* .
+
+# Copy files from the extracted folder to the current directory
+RUN cp -rvf neogym-html/* . 
+
+# Clean up unnecessary files
 RUN rm -rf neogym-html neogym.zip
-# line in this Dockerfile if you want the container to start the Apache HTTP Server (httpd) in the foreground when it runs.
-CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"] 
+
+# Set the container to start Apache in the foreground
+CMD ["/usr/sbin/httpd", "-D", "FOREGROUND"]
+
+# Expose port 80 for the HTTP server
 EXPOSE 80
+
